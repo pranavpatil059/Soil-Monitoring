@@ -1,8 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const { SerialPort, ReadlineParser } = require('serialport');
+require('dotenv').config();
+const DropboxManager = require('./dropbox-integration');
 
 const app = express();
+
+// Initialize Dropbox
+const dropboxManager = new DropboxManager();
 
 // Middleware
 app.use(cors({
@@ -307,6 +312,70 @@ app.delete('/api/iot/sensor-data/history', (req, res) => {
     });
 });
 
+// Dropbox API Routes
+app.get('/api/dropbox/status', (req, res) => {
+    res.json({
+        success: true,
+        dropbox: dropboxManager.getStatus()
+    });
+});
+
+app.post('/api/dropbox/backup', async (req, res) => {
+    try {
+        const result = await dropboxManager.backupSensorData(sensorHistory);
+        res.json({
+            success: true,
+            message: 'Data backed up successfully',
+            backup: result
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+app.get('/api/dropbox/backups', async (req, res) => {
+    try {
+        const result = await dropboxManager.listBackups();
+        res.json({
+            success: true,
+            ...result
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+app.post('/api/dropbox/upload-photo', async (req, res) => {
+    try {
+        const { photoPath, customName } = req.body;
+        
+        if (!photoPath) {
+            return res.status(400).json({
+                success: false,
+                error: 'photoPath is required'
+            });
+        }
+
+        const result = await dropboxManager.uploadPhoto(photoPath, customName);
+        res.json({
+            success: true,
+            message: 'Photo uploaded successfully',
+            photo: result
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
 // Basic health check route
 app.get('/api/health', (req, res) => {
     res.json({ 
@@ -345,10 +414,16 @@ app.listen(PORT, () => {
     console.log(`🌐 Dashboard: http://localhost:${PORT}`);
     console.log(`📊 API Health: http://localhost:${PORT}/api/health`);
     console.log(`📡 IoT Health: http://localhost:${PORT}/api/iot/health`);
+    console.log(`☁️  Dropbox Status: http://localhost:${PORT}/api/dropbox/status`);
     console.log('=' * 60);
     console.log('✅ Ready to monitor soil conditions!');
     
     if (demoMode) {
         console.log('💡 Connect Arduino to COM5 and restart for real sensor data');
+    }
+    
+    // Start auto backup if Dropbox is connected
+    if (dropboxManager.getStatus().connected) {
+        dropboxManager.startAutoBackup(sensorHistory, 30); // Backup every 30 minutes
     }
 });
