@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 One-Click Dropbox Fix</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-green-500 via-blue-500 to-purple-600">
+    <div class="max-w-2xl mx-auto p-6">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 text-center">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">🔧 One-Click Dropbox Fix</h1>
+            
+            <div id="status" class="mb-8">
+                <div class="text-lg text-gray-600">Click the button below to fix Dropbox connection</div>
+            </div>
+
+            <!-- Big Fix Button -->
+            <button id="fixButton" onclick="fixDropbox()" class="bg-gradient-to-r from-green-500 to-blue-500 text-white px-12 py-6 rounded-2xl text-2xl font-bold hover:from-green-600 hover:to-blue-600 transition-all duration-300 shadow-lg transform hover:scale-105">
+                🚀 FIX DROPBOX NOW
+            </button>
+
+            <div id="result" class="mt-8"></div>
+
+            <!-- Instructions -->
+            <div class="mt-8 p-4 bg-blue-50 rounded-xl text-left">
+                <h3 class="font-bold text-blue-800 mb-2">📋 How it works:</h3>
+                <ol class="list-decimal list-inside text-blue-700 space-y-1">
+                    <li>Click "FIX DROPBOX NOW" button</li>
+                    <li>You'll be redirected to Dropbox</li>
+                    <li>Click "Allow" on Dropbox page</li>
+                    <li>Come back here - DONE! ✅</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fixDropbox() {
+            const button = document.getElementById('fixButton');
+            const status = document.getElementById('status');
+            const result = document.getElementById('result');
+            
+            // Disable button
+            button.disabled = true;
+            button.innerHTML = '🔄 FIXING...';
+            button.className = 'bg-gray-400 text-white px-12 py-6 rounded-2xl text-2xl font-bold cursor-not-allowed';
+            
+            status.innerHTML = '<div class="text-blue-600 text-lg">🔄 Starting Dropbox fix...</div>';
+            
+            try {
+                // Step 1: Initialize OAuth
+                const response = await fetch('/api/gallery/setup/init');
+                const data = await response.json();
+                
+                if (data.success && data.authUrl) {
+                    status.innerHTML = '<div class="text-green-600 text-lg">✅ Redirecting to Dropbox...</div>';
+                    
+                    // Redirect to Dropbox authorization
+                    setTimeout(() => {
+                        window.location.href = data.authUrl;
+                    }, 1000);
+                } else {
+                    throw new Error('Failed to initialize OAuth');
+                }
+                
+            } catch (error) {
+                console.error('Fix failed:', error);
+                
+                // Re-enable button
+                button.disabled = false;
+                button.innerHTML = '🚀 FIX DROPBOX NOW';
+                button.className = 'bg-gradient-to-r from-green-500 to-blue-500 text-white px-12 py-6 rounded-2xl text-2xl font-bold hover:from-green-600 hover:to-blue-600 transition-all duration-300 shadow-lg transform hover:scale-105';
+                
+                status.innerHTML = '<div class="text-red-600 text-lg">❌ Fix failed. Try again.</div>';
+                result.innerHTML = '<div class="text-red-600 bg-red-50 p-4 rounded-lg">Error: ' + error.message + '</div>';
+            }
+        }
+
+        // Check if we're coming back from Dropbox
+        window.addEventListener('load', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('success') === 'true') {
+                document.getElementById('status').innerHTML = '<div class="text-green-600 text-xl font-bold">🎉 DROPBOX FIXED SUCCESSFULLY!</div>';
+                document.getElementById('result').innerHTML = `
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <div class="text-green-800 font-bold text-lg mb-2">✅ Success!</div>
+                        <div class="text-green-700 mb-4">Your Dropbox connection has been restored!</div>
+                        <a href="/gallery.html" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-all duration-300">
+                            🖼️ View Gallery
+                        </a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

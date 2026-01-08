@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 Plant Gallery - Soil Monitoring System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+        .animate-spin { animation: spin 1s linear infinite; }
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-cyan-50">
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in">
+            <div class="flex justify-center items-center mb-4">
+                <div class="p-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full mr-4">
+                    <i data-lucide="camera" class="h-8 w-8 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                        Plant Gallery
+                    </h1>
+                    <p class="text-gray-600 text-lg mt-2">Your plant photos, sorted by latest first</p>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="flex justify-center items-center gap-4 mt-6">
+                <div class="px-4 py-2 bg-green-100 text-green-800 rounded-lg flex items-center gap-2">
+                    <i data-lucide="check-circle" class="h-4 w-4"></i>
+                    Auto-Sync Enabled
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Total Photos</p>
+                        <p id="totalPhotos" class="text-3xl font-bold text-blue-600">0</p>
+                    </div>
+                    <i data-lucide="image" class="h-10 w-10 text-blue-500"></i>
+                </div>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Today</p>
+                        <p id="todayPhotos" class="text-3xl font-bold text-green-600">0</p>
+                    </div>
+                    <i data-lucide="calendar" class="h-10 w-10 text-green-500"></i>
+                </div>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">This Week</p>
+                        <p id="weekPhotos" class="text-3xl font-bold text-purple-600">0</p>
+                    </div>
+                    <i data-lucide="trending-up" class="h-10 w-10 text-purple-500"></i>
+                </div>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-orange-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Last Sync</p>
+                        <p id="lastSync" class="text-lg font-bold text-orange-600">Never</p>
+                    </div>
+                    <i data-lucide="cloud" class="h-10 w-10 text-orange-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional Token Refresh Notification -->
+        <div id="tokenNotification" class="bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 rounded-xl p-4 mb-6 hidden">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <i data-lucide="info" class="h-5 w-5 text-green-600 mr-3"></i>
+                    <div>
+                        <p class="text-green-800 font-medium">Gallery Auto-Sync Active!</p>
+                        <p class="text-green-600 text-sm">Photos automatically refresh every 5 minutes. <span id="errorFix" style="display:none;"><a href="/one-click-fix.html" class="underline text-red-600 font-bold">🔧 One-Click Fix</a></span></p>
+                    </div>
+                </div>
+                <button onclick="hideTokenNotification()" class="text-blue-400 hover:text-blue-600">
+                    <i data-lucide="x" class="h-5 w-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Gallery Container -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i data-lucide="camera" class="mr-3 h-8 w-8"></i>
+                        <div>
+                            <h2 class="text-2xl font-bold">Plant Photos</h2>
+                            <p class="text-purple-100 mt-1">Latest photos from your collection</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div id="connectionStatus" class="bg-white/20 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span>Connected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <!-- Loading State -->
+                <div id="loadingState" class="flex items-center justify-center py-16">
+                    <div class="text-center">
+                        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
+                        <p class="text-gray-600 text-lg">Loading photos from storage...</p>
+                        <p class="text-sm text-gray-500 mt-2">This may take a few moments</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div id="galleryGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 hidden">
+                    <!-- Photos will be loaded here -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-16 hidden">
+                    <i data-lucide="image-off" class="h-16 w-16 text-gray-400 mx-auto mb-4"></i>
+                    <p class="text-gray-600 text-lg">No photos found</p>
+                    <p class="text-sm text-gray-500 mt-2">Upload some plant photos to see them here</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 hidden">
+        <div class="bg-white rounded-xl max-w-5xl max-h-full overflow-auto">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 id="modalTitle" class="text-xl font-semibold">Photo</h3>
+                <button id="closeModal" class="p-2 hover:bg-gray-100 rounded-lg">
+                    <i data-lucide="x" class="h-6 w-6"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <img id="modalImage" src="" alt="" class="w-full h-auto rounded-lg mb-6 shadow-lg">
+                <div id="modalInfo" class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <!-- Photo info will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        let photos = [];
+
+        // Test modal function
+        function testModal() {
+            alert('testModal function called!');
+            console.log('testModal called, photos:', photos);
+            if (photos.length > 0) {
+                alert('Opening modal for first photo');
+                openModal(0);
+            } else {
+                alert('No photos available');
+                showNotification('❌ No photos available to test modal');
+            }
+        }
+
+        // Load photos from backend
+        async function loadPhotos() {
+            try {
+                showLoading();
+                
+                const response = await fetch('/api/gallery/photos');
+                const data = await response.json();
+                
+                if (data.success && data.photos && data.photos.length > 0) {
+                    photos = data.photos;
+                    updateStats();
+                    renderGallery();
+                    showNotification('✅ Photos loaded successfully!');
+                } else {
+                    // NO PHOTOS - SHOW EMPTY GALLERY ONLY
+                    console.log('No real photos from Dropbox - showing empty gallery');
+                    photos = [];
+                    updateStats();
+                    showEmptyGallery();
+                    showNotification('📸 No photos in Dropbox - upload some photos');
+                }
+            } catch (error) {
+                console.error('Error loading photos:', error);
+                // NO FALLBACK - SHOW EMPTY ON ERROR
+                console.log('Dropbox API failed - showing empty gallery');
+                photos = [];
+                updateStats();
+                showEmptyGallery();
+                showNotification('❌ Dropbox connection failed - check your connection');
+            }
+        }
+
+        // Show empty gallery
+        function showEmptyGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            
+            loadingState.classList.add('hidden');
+            galleryGrid.classList.add('hidden');
+            emptyState.classList.remove('hidden');
+        }
+
+        // Update statistics
+        function updateStats() {
+            const total = photos.length;
+            const today = new Date();
+            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            const weekStart = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            const todayCount = photos.filter(photo => new Date(photo.dateModified) >= todayStart).length;
+            const weekCount = photos.filter(photo => new Date(photo.dateModified) >= weekStart).length;
+            
+            document.getElementById('totalPhotos').textContent = total;
+            document.getElementById('todayPhotos').textContent = todayCount;
+            document.getElementById('weekPhotos').textContent = weekCount;
+            document.getElementById('lastSync').textContent = new Date().toLocaleTimeString();
+        }
+
+        // Render gallery
+        function renderGallery() {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const loadingState = document.getElementById('loadingState');
+            const emptyState = document.getElementById('emptyState');
+            
+            loadingState.classList.add('hidden');
+            
+            if (photos.length === 0) {
+                emptyState.classList.remove('hidden');
+                galleryGrid.classList.add('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            galleryGrid.classList.remove('hidden');
+            
+            // Sort photos by date (newest first)
+            const sortedPhotos = [...photos].sort((a, b) => new Date(b.dateModified) - new Date(a.dateModified));
+            
+            galleryGrid.innerHTML = sortedPhotos.map((photo, index) => `
+                <div class="gallery-item bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer" onclick="openModal(${index})" data-photo-index="${index}">
+                    <div class="relative">
+                        <img src="${photo.url}" alt="${photo.title}" class="w-full h-48 object-cover hover:scale-105 transition-transform duration-300" onerror="this.src='${photo.thumbnail}'; console.log('Image failed to load:', '${photo.url}');">
+                        <div class="absolute top-3 right-3">
+                            <span class="px-3 py-1 bg-black bg-opacity-70 text-white text-xs rounded-full">
+                                ${formatDate(photo.dateModified)}
+                            </span>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity duration-300"></i>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-semibold text-gray-800 mb-2 truncate">${photo.title}</h4>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>📅 ${new Date(photo.dateModified).toLocaleDateString()}</span>
+                            <span>💾 ${photo.size}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Store sorted photos globally for modal access
+            window.sortedPhotos = sortedPhotos;
+            
+            lucide.createIcons();
+        }
+
+        // Format date for display
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return 'Today';
+            if (diffDays === 2) return 'Yesterday';
+            if (diffDays <= 7) return `${diffDays - 1} days ago`;
+            return date.toLocaleDateString();
+        }
+
+        // Open photo modal
+        function openModal(index) {
+            console.log('🔍 Opening modal for photo index:', index);
+            
+            // Use sorted photos if available, otherwise use original photos array
+            const photosToUse = window.sortedPhotos || photos;
+            console.log('📸 Photos array length:', photosToUse.length);
+            
+            if (!photosToUse || photosToUse.length === 0) {
+                console.error('❌ No photos available');
+                alert('No photos available');
+                return;
+            }
+            
+            if (index < 0 || index >= photosToUse.length) {
+                console.error('❌ Invalid photo index:', index, 'Max:', photosToUse.length - 1);
+                alert(`Invalid photo index: ${index}`);
+                return;
+            }
+            
+            const photo = photosToUse[index];
+            console.log('✅ Selected photo:', photo);
+            
+            const modal = document.getElementById('photoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalImage = document.getElementById('modalImage');
+            const modalInfo = document.getElementById('modalInfo');
+            
+            if (!modal || !modalTitle || !modalImage || !modalInfo) {
+                console.error('❌ Modal elements not found');
+                alert('Modal elements not found');
+                return;
+            }
+            
+            modalTitle.textContent = photo.title || 'Photo';
+            modalImage.src = photo.url || photo.thumbnail;
+            modalImage.alt = photo.title || 'Photo';
+            
+            // Add error handling for modal image
+            modalImage.onerror = function() {
+                console.error('❌ Modal image failed to load:', photo.url);
+                this.src = photo.thumbnail || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkltYWdlIG5vdCBhdmFpbGFibGU8L3RleHQ+PC9zdmc+';
+            };
+            
+            modalInfo.innerHTML = `
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Photo Details</h4>
+                    <div class="space-y-2">
+                        <p><strong>Name:</strong> ${photo.name || 'Unknown'}</p>
+                        <p><strong>Date:</strong> ${new Date(photo.dateModified).toLocaleString()}</p>
+                        <p><strong>Size:</strong> ${photo.size}</p>
+                        <p><strong>URL:</strong> <code class="text-xs bg-gray-100 px-2 py-1 rounded">${photo.url}</code></p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-800 mb-2">Actions</h4>
+                    <div class="space-y-3">
+                        <button onclick="window.open('${photo.url}', '_blank')" class="w-full px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="external-link" class="h-5 w-5"></i>
+                            Open in New Tab
+                        </button>
+                        <button onclick="copyToClipboard('${photo.url}')" class="w-full px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i data-lucide="copy" class="h-5 w-5"></i>
+                            Copy URL
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            console.log('✅ Modal opened successfully');
+            lucide.createIcons();
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('✅ URL copied to clipboard!');
+            }).catch(() => {
+                showNotification('❌ Failed to copy URL');
+            });
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('photoModal').classList.add('hidden');
+        }
+
+        // Download photo
+        async function downloadPhoto(photoId) {
+            try {
+                showNotification('📥 Downloading photo...');
+                
+                const response = await fetch(`/api/gallery/download/${photoId}`);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `plant-photo-${photoId}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    showNotification('✅ Photo downloaded successfully!');
+                } else {
+                    throw new Error('Download failed');
+                }
+            } catch (error) {
+                console.error('Error downloading photo:', error);
+                showNotification('❌ Failed to download photo');
+            }
+        }
+
+        // Sync with cloud storage
+        async function syncWithCloudStorage() {
+            try {
+                showNotification('🔄 Refreshing photos...');
+                
+                const response = await fetch('/api/gallery/sync', { method: 'POST' });
+                const data = await response.json();
+                
+                if (data.success) {
+                    await loadPhotos();
+                    showNotification('✅ Photos refreshed successfully!');
+                } else {
+                    throw new Error(data.error || 'Refresh failed');
+                }
+            } catch (error) {
+                console.error('Error refreshing:', error);
+                showNotification('❌ Failed to refresh photos');
+            }
+        }
+
+        // Show loading state
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('galleryGrid').classList.add('hidden');
+            document.getElementById('emptyState').classList.add('hidden');
+        }
+
+        // Show error state
+        function showError(message) {
+            const loadingState = document.getElementById('loadingState');
+            loadingState.innerHTML = `
+                <div class="text-center">
+                    <i data-lucide="alert-circle" class="h-16 w-16 text-red-500 mx-auto mb-4"></i>
+                    <p class="text-red-600 text-lg">${message}</p>
+                    <button onclick="loadPhotos()" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all duration-300">
+                        Try Again
+                    </button>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+            notification.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle" class="h-5 w-5"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Hide token notification
+        function hideTokenNotification() {
+            document.getElementById('tokenNotification').classList.add('hidden');
+            localStorage.setItem('hideTokenNotification', 'true');
+        }
+
+        // Check if we should show token notification
+        function checkTokenNotification() {
+            // Only show if user hasn't dismissed it and we have photos but token might be expired
+            if (!localStorage.getItem('hideTokenNotification')) {
+                // Check if we're using cached photos (which means token might be expired)
+                fetch('/api/gallery/health')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && !data.tokenValid && photos.length > 0) {
+                            document.getElementById('tokenNotification').classList.remove('hidden');
+                        }
+                    })
+                    .catch(() => {
+                        // If health check fails, don't show notification
+                    });
+            }
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load photos on page load
+            loadPhotos();
+
+            // Auto-refresh photos every 5 minutes
+            setInterval(() => {
+                console.log('🔄 Auto-refreshing gallery...');
+                loadPhotos();
+            }, 5 * 60 * 1000); // 5 minutes
+
+            // Close modal button
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+
+            // Close modal on outside click
+            document.getElementById('photoModal').addEventListener('click', (e) => {
+                if (e.target.id === 'photoModal') {
+                    closeModal();
+                }
+            });
+
+            // Close modal on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

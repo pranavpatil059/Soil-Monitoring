@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Moisture Data - Soil Monitoring System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+        .animate-spin { animation: spin 1s linear infinite; }
+        .data-row {
+            transition: all 0.3s ease;
+        }
+        .data-row:hover {
+            transform: translateX(4px);
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-cyan-50">
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in">
+            <div class="flex justify-center items-center mb-4">
+                <div class="p-3 bg-gradient-to-r from-blue-600 to-green-600 rounded-full mr-4">
+                    <i data-lucide="database" class="h-8 w-8 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+                        Moisture Data
+                    </h1>
+                    <p class="text-gray-600 text-lg mt-2">Historical soil moisture readings from sensors</p>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <div class="flex justify-center items-center gap-4 mt-6">
+                <button id="refreshBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300">
+                    <i data-lucide="refresh-cw" class="h-4 w-4"></i>
+                    Refresh Data
+                </button>
+                <button id="exportBtn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300">
+                    <i data-lucide="download" class="h-4 w-4"></i>
+                    Export CSV
+                </button>
+            </div>
+        </div>
+
+        <!-- Data Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-blue-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Total Records</p>
+                        <p id="totalRecords" class="text-3xl font-bold text-blue-600">0</p>
+                    </div>
+                    <i data-lucide="database" class="h-10 w-10 text-blue-500"></i>
+                </div>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-green-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Average Moisture</p>
+                        <p id="avgMoisture" class="text-3xl font-bold text-green-600">0%</p>
+                    </div>
+                    <i data-lucide="droplets" class="h-10 w-10 text-green-500"></i>
+                </div>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-orange-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Latest Reading</p>
+                        <p id="latestMoisture" class="text-3xl font-bold text-orange-600">0%</p>
+                    </div>
+                    <i data-lucide="activity" class="h-10 w-10 text-orange-500"></i>
+                </div>
+            </div>
+            <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-purple-500">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-gray-600 mb-1">Last Updated</p>
+                        <p id="lastUpdated" class="text-lg font-bold text-purple-600">Never</p>
+                    </div>
+                    <i data-lucide="clock" class="h-10 w-10 text-purple-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table Container -->
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div class="bg-gradient-to-r from-blue-600 to-green-600 text-white p-6">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <i data-lucide="table" class="mr-3 h-8 w-8"></i>
+                        <div>
+                            <h2 class="text-2xl font-bold">Moisture Readings</h2>
+                            <p class="text-blue-100 mt-1">Historical data from ThingSpeak sensors</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div id="connectionStatus" class="bg-white/20 text-white px-4 py-2 rounded-full text-sm flex items-center gap-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span>Connected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6">
+                <!-- Loading State -->
+                <div id="loadingState" class="flex items-center justify-center py-16">
+                    <div class="text-center">
+                        <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-6"></div>
+                        <p class="text-gray-600 text-lg">Loading moisture data...</p>
+                        <p class="text-sm text-gray-500 mt-2">Fetching from ThingSpeak API</p>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div id="dataTable" class="hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="droplets" class="h-4 w-4"></i>
+                                            Moisture Value (%)
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="hash" class="h-4 w-4"></i>
+                                            Count
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="clock" class="h-4 w-4"></i>
+                                            Time Span
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        <div class="flex items-center gap-2">
+                                            <i data-lucide="trending-up" class="h-4 w-4"></i>
+                                            Status
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="dataTableBody" class="bg-white divide-y divide-gray-200">
+                                <!-- Data rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="flex items-center justify-between px-6 py-4 bg-gray-50">
+                        <div class="text-sm text-gray-700">
+                            Showing <span id="showingFrom">1</span> to <span id="showingTo">10</span> of <span id="totalEntries">0</span> entries
+                        </div>
+                        <div class="flex gap-2">
+                            <button id="prevBtn" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm hover:bg-gray-50 disabled:opacity-50">
+                                Previous
+                            </button>
+                            <button id="nextBtn" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm hover:bg-gray-50 disabled:opacity-50">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-16 hidden">
+                    <i data-lucide="database-x" class="h-16 w-16 text-gray-400 mx-auto mb-4"></i>
+                    <p class="text-gray-600 text-lg">No moisture data found</p>
+                    <p class="text-sm text-gray-500 mt-2">Check your ThingSpeak connection and try refreshing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        let moistureData = [];
+        let currentPage = 1;
+        const itemsPerPage = 20;
+
+        // Smart back to dashboard function
+        function goBackToDashboard() {
+            // Force navigation to dashboard - most reliable method
+            window.location.replace('/');
+        }
+
+        // Load moisture data from backend - REAL-TIME
+        async function loadMoistureData() {
+            try {
+                showLoading();
+                
+                // Call the new real-time moisture endpoint
+                const response = await fetch('/api/moisture');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Convert history data to expected format
+                    moistureData = data.history.map((reading, index) => ({
+                        moisture: reading.moisture,
+                        timestamp: reading.time,
+                        count: 1,
+                        timeSpan: reading.time
+                    }));
+                    
+                    updateStats();
+                    renderTable();
+                    showNotification('✅ Real-time data loaded successfully!');
+                    
+                    // Update connection status
+                    document.getElementById('connectionStatus').innerHTML = `
+                        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span>Live Data</span>
+                    `;
+                } else {
+                    throw new Error(data.message || 'Failed to load moisture data');
+                }
+            } catch (error) {
+                console.error('Error loading moisture data:', error);
+                showError('Sensor data temporarily unavailable');
+                
+                // Update connection status
+                document.getElementById('connectionStatus').innerHTML = `
+                    <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                    <span>Disconnected</span>
+                `;
+            }
+        }
+
+        // Update statistics - REAL-TIME
+        function updateStats() {
+            const total = moistureData.length;
+            const moistureValues = moistureData.map(d => parseFloat(d.moisture));
+            const average = moistureValues.length > 0 ? 
+                (moistureValues.reduce((a, b) => a + b, 0) / moistureValues.length).toFixed(1) : 0;
+            const latest = moistureValues.length > 0 ? moistureValues[0] : 0;
+            
+            document.getElementById('totalRecords').textContent = total;
+            document.getElementById('avgMoisture').textContent = average + '%';
+            document.getElementById('latestMoisture').textContent = latest + '%';
+            document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+        }
+
+        // Render data table
+        function renderTable() {
+            const tableBody = document.getElementById('dataTableBody');
+            const loadingState = document.getElementById('loadingState');
+            const dataTable = document.getElementById('dataTable');
+            const emptyState = document.getElementById('emptyState');
+            
+            loadingState.classList.add('hidden');
+            
+            if (moistureData.length === 0) {
+                emptyState.classList.remove('hidden');
+                dataTable.classList.add('hidden');
+                return;
+            }
+            
+            emptyState.classList.add('hidden');
+            dataTable.classList.remove('hidden');
+            
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = moistureData.slice(startIndex, endIndex);
+            
+            // Generate table rows
+            tableBody.innerHTML = pageData.map((reading, index) => {
+                const moisture = parseFloat(reading.moisture);
+                const status = getStatusBadge(moisture);
+                const count = reading.count || 1;
+                const timeSpan = reading.timeSpan || new Date(reading.timestamp).toLocaleDateString();
+                
+                return `
+                    <tr class="data-row hover:bg-gray-50" title="Occurrences: ${reading.occurrences || 'Single reading'}">
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10">
+                                    <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i data-lucide="droplets" class="h-5 w-5 text-blue-600"></i>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-lg font-medium text-gray-900">${moisture}%</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="flex items-center">
+                                <span class="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-800 rounded-full">
+                                    ${count} time${count > 1 ? 's' : ''}
+                                </span>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">${timeSpan}</div>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            ${status}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            // Update pagination info
+            document.getElementById('showingFrom').textContent = startIndex + 1;
+            document.getElementById('showingTo').textContent = Math.min(endIndex, moistureData.length);
+            document.getElementById('totalEntries').textContent = moistureData.length;
+            
+            // Update pagination buttons
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = endIndex >= moistureData.length;
+            
+            lucide.createIcons();
+        }
+
+        // Get status badge based on moisture level
+        function getStatusBadge(moisture) {
+            if (moisture < 30) {
+                return '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Dry</span>';
+            } else if (moisture < 60) {
+                return '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Moderate</span>';
+            } else {
+                return '<span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Optimal</span>';
+            }
+        }
+
+        // Export data to CSV
+        function exportToCSV() {
+            if (moistureData.length === 0) {
+                showNotification('❌ No data to export');
+                return;
+            }
+            
+            const headers = ['Moisture (%)', 'Timestamp', 'Status'];
+            const csvContent = [
+                headers.join(','),
+                ...moistureData.map(reading => {
+                    const moisture = parseFloat(reading.moisture);
+                    const timestamp = new Date(reading.timestamp).toLocaleString();
+                    const status = moisture < 30 ? 'Dry' : moisture < 60 ? 'Moderate' : 'Optimal';
+                    return `${moisture},${timestamp},${status}`;
+                })
+            ].join('\n');
+            
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `moisture-data-${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            showNotification('✅ Data exported successfully!');
+        }
+
+        // Refresh data from ThingSpeak - REAL-TIME
+        async function refreshData() {
+            try {
+                showNotification('🔄 Refreshing real-time data...');
+                
+                // Just reload the data - backend fetches fresh data on every request
+                await loadMoistureData();
+                showNotification('✅ Real-time data refreshed!');
+            } catch (error) {
+                console.error('Error refreshing data:', error);
+                showNotification('❌ Failed to refresh data');
+            }
+        }
+
+        // Show loading state
+        function showLoading() {
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('dataTable').classList.add('hidden');
+            document.getElementById('emptyState').classList.add('hidden');
+        }
+
+        // Show error state
+        function showError(message) {
+            const loadingState = document.getElementById('loadingState');
+            loadingState.innerHTML = `
+                <div class="text-center">
+                    <i data-lucide="alert-circle" class="h-16 w-16 text-red-500 mx-auto mb-4"></i>
+                    <p class="text-red-600 text-lg">${message}</p>
+                    <button onclick="loadMoistureData()" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300">
+                        Try Again
+                    </button>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in';
+            notification.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <i data-lucide="check-circle" class="h-5 w-5"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            lucide.createIcons();
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load data on page load
+            loadMoistureData();
+
+            // Refresh button
+            document.getElementById('refreshBtn').addEventListener('click', refreshData);
+
+            // Export button
+            document.getElementById('exportBtn').addEventListener('click', exportToCSV);
+
+            // Pagination buttons
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                const maxPage = Math.ceil(moistureData.length / itemsPerPage);
+                if (currentPage < maxPage) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

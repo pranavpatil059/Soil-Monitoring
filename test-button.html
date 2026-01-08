@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Test</title>
+</head>
+<body>
+    <h1>Simple Button Test</h1>
+    <button id="testBtn" onclick="testFunction()">Test Button</button>
+    
+    <script>
+        function testFunction() {
+            alert('Button is working!');
+            console.log('Button clicked successfully');
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded');
+            const btn = document.getElementById('testBtn');
+            if (btn) {
+                console.log('Button found');
+            } else {
+                console.log('Button NOT found');
+            }
+        });
+    </script>
+</body>
+</html>
