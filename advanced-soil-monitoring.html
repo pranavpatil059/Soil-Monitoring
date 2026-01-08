@@ -47,32 +47,11 @@
                 </div>
             </div>
 
-            <!-- Mode Toggle Switch -->
-            <div class="flex justify-center items-center gap-4 mt-6 mb-4">
-                <div class="p-4 bg-white shadow-lg rounded-lg">
-                    <div class="flex items-center gap-4">
-                        <span class="text-sm font-semibold text-gray-700">Data Source:</span>
-                        <div class="flex items-center gap-3">
-                            <button id="demoModeBtn" class="px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white transition-all duration-300">
-                                🎬 Demo Mode
-                            </button>
-                            <div class="relative inline-block w-12 h-6">
-                                <input type="checkbox" id="modeToggle" class="sr-only peer">
-                                <div class="w-12 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600 cursor-pointer"></div>
-                            </div>
-                            <button id="piModeBtn" class="px-4 py-2 rounded-lg bg-gray-200 text-gray-600 transition-all duration-300">
-                                📡 Raspberry Pi
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- Connection Status -->
             <div class="flex justify-center items-center gap-4 mt-4">
-                <div id="connectionStatus" class="px-4 py-2 bg-purple-100 text-purple-800 rounded-full flex items-center gap-2">
+                <div id="connectionStatus" class="px-4 py-2 bg-green-100 text-green-800 rounded-full flex items-center gap-2">
                     <i data-lucide="activity" class="h-4 w-4"></i>
-                    <span>Demo Mode Active</span>
+                    <span>Live Data Active</span>
                 </div>
                 <button id="refreshBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300">
                     <i data-lucide="refresh-cw" class="h-4 w-4"></i>
@@ -81,6 +60,14 @@
                 <button id="comparisonBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300">
                     <i data-lucide="activity" class="h-4 w-4"></i>
                     Show Comparison
+                </button>
+                <button id="galleryBtn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300">
+                    <i data-lucide="camera" class="h-4 w-4"></i>
+                    Gallery
+                </button>
+                <button id="moistureDataBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 transition-all duration-300">
+                    <i data-lucide="database" class="h-4 w-4"></i>
+                    Moisture Data
                 </button>
             </div>
         </div>
@@ -181,7 +168,7 @@
                                     <span class="text-sm font-medium">Device</span>
                                 </div>
                             </div>
-                            <div id="deviceId" class="text-xs text-gray-600 break-all">DEMO-MODE</div>
+                            <div id="deviceId" class="text-xs text-gray-600 break-all">LIVE-SYSTEM</div>
                         </div>
 
                         <div class="p-3 bg-orange-50 rounded-lg">
@@ -354,43 +341,7 @@
             </div>
         </div>
 
-        <!-- Demo Video Section -->
-        <div class="shadow-2xl border-0 bg-white/90 backdrop-blur-sm mb-8 rounded-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <i data-lucide="play-circle" class="mr-2 h-6 w-6"></i>
-                        <h3 class="text-xl font-bold">🎬 System Demo & Tutorial</h3>
-                    </div>
-                    <div class="bg-white/20 text-white px-3 py-1 rounded-full text-sm">
-                        IIT Bombay Winner
-                    </div>
-                </div>
-            </div>
-            <div class="p-6">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Video Player -->
-                    <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg p-8 flex items-center justify-center min-h-[300px]">
-                        <div class="text-center text-white">
-                            <i data-lucide="play-circle" class="h-16 w-16 mx-auto mb-4 opacity-60"></i>
-                            <h4 class="text-xl font-bold mb-2">Demo Video</h4>
-                            <p class="text-gray-300 mb-4">Watch the complete system in action</p>
-                            <button id="playDemoBtn" class="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 flex items-center gap-2 mx-auto">
-                                <i data-lucide="play" class="h-5 w-5"></i>
-                                Play Demo
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Video Info -->
-                    <div class="space-y-4">
-                        <div class="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border-l-4 border-purple-500">
-                            <h4 class="font-bold text-gray-800 mb-2">🏆 Award-Winning Features</h4>
-                            <ul class="text-sm text-gray-700 space-y-1">
-                                <li>• Real-time soil moisture monitoring</li>
-                                <li>• AI-powered crop recommendations</li>
-                                <li>• Pattern matching algorithms</li>
-                                <li>• Smart irrigation alerts</li>
                                 <li>• Historical data analytics</li>
                             </ul>
                         </div>
@@ -438,7 +389,6 @@
         lucide.createIcons();
 
         // Global variables
-        let demoMode = true;
         let moistureChart;
         let currentMoisture = 61;
         let historyData = [
@@ -654,75 +604,38 @@
 
         // Update chart with new data
         function updateChart() {
-            if (demoMode) {
-                // Generate new demo data point
-                const now = new Date();
-                const timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                const newMoisture = Math.max(30, Math.min(80, currentMoisture + (Math.random() - 0.5) * 10));
-                
-                historyData.push({ time: timeStr, moisture: Math.round(newMoisture) });
-                
-                // Keep only last 20 points
-                if (historyData.length > 20) {
-                    historyData.shift();
-                }
-                
-                // Update chart
-                moistureChart.data.labels = historyData.map(d => d.time);
-                moistureChart.data.datasets[0].data = historyData.map(d => d.moisture);
-                moistureChart.update();
-                
-                // Update moisture display
-                updateMoistureDisplay(newMoisture);
-                
-                // Update readings count
-                document.getElementById('readingsCount').textContent = historyData.length;
-                document.getElementById('dataPoints').textContent = historyData.length;
-            }
-        }
-
-        // Mode toggle functionality
-        function toggleMode() {
-            demoMode = !demoMode;
-            console.log('🔄 Toggling mode to:', demoMode ? 'Demo' : 'Raspberry Pi');
-            
-            const demoBtn = document.getElementById('demoModeBtn');
-            const piBtn = document.getElementById('piModeBtn');
-            const toggle = document.getElementById('modeToggle');
-            const status = document.getElementById('connectionStatus');
-            
-            if (demoMode) {
-                // Demo mode active
-                demoBtn.className = 'px-4 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 text-white transition-all duration-300';
-                piBtn.className = 'px-4 py-2 rounded-lg bg-gray-200 text-gray-600 transition-all duration-300';
-                toggle.checked = false;
-                status.className = 'px-4 py-2 bg-purple-100 text-purple-800 rounded-full flex items-center gap-2';
-                status.innerHTML = '<i data-lucide="activity" class="h-4 w-4"></i><span>Demo Mode Active</span>';
-                document.getElementById('deviceId').textContent = 'DEMO-MODE';
-                document.getElementById('liveStatus').textContent = '● Live (Demo)';
-                document.getElementById('liveStatus').className = 'text-xs text-purple-600 font-semibold';
-                
-                // Start demo updates
-                console.log('🎬 Demo mode activated - starting updates');
-            } else {
-                // Raspberry Pi mode
-                demoBtn.className = 'px-4 py-2 rounded-lg bg-gray-200 text-gray-600 transition-all duration-300';
-                piBtn.className = 'px-4 py-2 rounded-lg bg-gradient-to-r from-green-600 to-emerald-600 text-white transition-all duration-300';
-                toggle.checked = true;
-                status.className = 'px-4 py-2 bg-red-100 text-red-800 rounded-full flex items-center gap-2';
-                status.innerHTML = '<i data-lucide="wifi-off" class="h-4 w-4"></i><span>Waiting for Data</span>';
-                document.getElementById('deviceId').textContent = 'raspberry-pi-001';
-                document.getElementById('liveStatus').textContent = '○ Offline';
-                document.getElementById('liveStatus').className = 'text-xs text-red-600 font-semibold';
-                
-                console.log('📡 Raspberry Pi mode activated - waiting for sensor data');
-            }
-            
-            // Re-initialize Lucide icons
-            lucide.createIcons();
-            
-            // Show mode change notification
-            showNotification(demoMode ? '🎬 Demo Mode Activated' : '📡 Raspberry Pi Mode Activated');
+            // Fetch real data from API instead of demo data
+            fetch('/api/iot/sensor-data/latest')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const newMoisture = data.data.soilMoisture;
+                        const now = new Date();
+                        const timeStr = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                        
+                        historyData.push({ time: timeStr, moisture: Math.round(newMoisture) });
+                        
+                        // Keep only last 20 points
+                        if (historyData.length > 20) {
+                            historyData.shift();
+                        }
+                        
+                        // Update chart
+                        moistureChart.data.labels = historyData.map(d => d.time);
+                        moistureChart.data.datasets[0].data = historyData.map(d => d.moisture);
+                        moistureChart.update();
+                        
+                        // Update moisture display
+                        updateMoistureDisplay(newMoisture);
+                        
+                        // Update readings count
+                        document.getElementById('readingsCount').textContent = historyData.length;
+                        document.getElementById('dataPoints').textContent = historyData.length;
+                    }
+                })
+                .catch(error => {
+                    console.log('API fetch failed:', error.message);
+                });
         }
 
         // Show notification function
@@ -797,28 +710,6 @@
 
         // Event listeners
         document.addEventListener('DOMContentLoaded', () => {
-            // Demo mode button
-            document.getElementById('demoModeBtn').addEventListener('click', () => {
-                console.log('Demo mode clicked');
-                if (!demoMode) {
-                    toggleMode();
-                }
-            });
-
-            // Pi mode button
-            document.getElementById('piModeBtn').addEventListener('click', () => {
-                console.log('Pi mode clicked');
-                if (demoMode) {
-                    toggleMode();
-                }
-            });
-
-            // Toggle switch
-            document.getElementById('modeToggle').addEventListener('change', (e) => {
-                console.log('Toggle changed:', e.target.checked);
-                toggleMode();
-            });
-
             // Refresh button
             document.getElementById('refreshBtn').addEventListener('click', () => {
                 console.log('Refresh clicked');
@@ -831,6 +722,18 @@
                 console.log('Comparison clicked');
                 // Toggle comparison view (placeholder for now)
                 alert('🎬 Comparison view feature - Coming soon in full version!');
+            });
+
+            // Gallery button
+            document.getElementById('galleryBtn').addEventListener('click', () => {
+                console.log('Gallery clicked');
+                window.location.href = '/gallery.html';
+            });
+
+            // Moisture Data button
+            document.getElementById('moistureDataBtn').addEventListener('click', () => {
+                console.log('Moisture Data clicked');
+                window.location.href = '/moisture-data.html';
             });
 
             // Video demo button
@@ -853,14 +756,12 @@
             // Initialize Lucide icons
             lucide.createIcons();
             
-            // Start demo mode updates
-            console.log('🎬 Starting demo mode with 3-second updates');
+            // Start real data updates every 30 seconds
+            console.log('📡 Starting real data updates every 30 seconds');
             setInterval(() => {
-                if (demoMode) {
-                    updateChart();
-                    document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
-                }
-            }, 3000);
+                updateChart();
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            }, 30000);
             
             console.log('✅ System initialized successfully!');
         });

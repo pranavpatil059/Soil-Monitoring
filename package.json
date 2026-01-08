@@ -7,11 +7,13 @@
     "start": "node advanced-backend.js",
     "dev": "nodemon advanced-backend.js",
     "simple": "node soil-monitoring-app.js",
+
     "setup": "node setup-credentials.js",
     "security-check": "node security-check.js",
     "clean-cache": "rm -rf cached-photos/*",
     "backup-env": "cp .env .env.backup.$(date +%s) 2>/dev/null || echo 'No .env file to backup'",
     "validate-env": "node -e \"require('dotenv').config(); console.log('✅ Environment variables loaded successfully');\"",
+
     "build": "echo 'Build completed'",
     "vercel-build": "echo 'Vercel build completed'"
   },

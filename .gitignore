@@ -45,6 +45,9 @@ jspm_packages/
 
 # dotenv environment variables file
 .env
+.env.*
+.env.local
+.env.development
 .env.test
 .env.production
 
@@ -99,3 +102,104 @@ Thumbs.db
 temp_repo/
 *.tmp
 *.temp
+
+# ==========================================
+# MAXIMUM SECURITY - SENSITIVE FILES
+# ==========================================
+
+# Environment files (ALL VARIANTS)
+*.env*
+.env*
+env.*
+environment.*
+
+# API Keys and Tokens (ALL FORMATS)
+*token*
+*key*
+*secret*
+*credential*
+*auth*
+*api*
+*access*
+*refresh*
+
+# Dropbox specific files
+dropbox*
+*dropbox*
+DROPBOX*
+
+# ThingSpeak specific files
+thingspeak*
+*thingspeak*
+THINGSPEAK*
+
+# Configuration files with secrets
+config/secrets.*
+secrets/
+private/
+confidential/
+
+# Certificate and key files
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.cer
+*.der
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Backup files
+*.bak
+*.backup
+*_backup
+backup_*
+
+# Cached photos (contains user data)
+cached-photos/
+cache/
+uploads/
+
+# Session files
+sessions/
+*.session
+
+# Any file with 'private' in name
+*private*
+*PRIVATE*
+
+# Any file with 'secure' in name
+*secure*
+*SECURE*
+
+# Local configuration overrides
+local.*
+*.local
+
+# Development only files
+dev.*
+*.dev
+
+# Test files with sensitive data
+test-data/
+*test-credentials*
+
+# ==========================================
+# TEAM COLLABORATION SAFETY
+# ==========================================
+
+# Prevent accidental commits of sensitive files
+# Even if renamed or moved to different directories
+**/*token*
+**/*key*
+**/*secret*
+**/*credential*
+**/*auth*
+**/.env*
+**/config/secrets*
+**/private/*
+**/confidential/*

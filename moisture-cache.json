@@ -1,0 +1,816 @@
+{
+  "readings": [
+    {
+      "id": 1268,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:37:39Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1269,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:37:56Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1270,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:38:22Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1271,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:38:38Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1272,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:38:55Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1273,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:39:12Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1274,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:39:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1275,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:39:44Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1276,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:40:06Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1277,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:40:34Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1278,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:40:50Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1279,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:41:12Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1280,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:41:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1281,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:41:56Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1282,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:42:15Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1283,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:42:34Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1284,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:42:57Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1285,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:43:18Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1286,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:44:00Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1287,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:44:16Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1288,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:44:39Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1289,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:44:55Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1290,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:45:10Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1291,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:45:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1292,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:45:43Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1293,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:45:59Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1294,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:46:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1295,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:46:46Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1296,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:47:10Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1297,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:47:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1298,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:47:48Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1299,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:48:07Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1300,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:48:25Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1301,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:48:41Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1302,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:49:03Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1303,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:49:25Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1304,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:49:45Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1305,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:50:07Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1306,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:50:25Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1307,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:50:42Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1308,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:51:18Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1309,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:51:36Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1310,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:51:55Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1311,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:52:10Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1312,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:52:26Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1313,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:52:43Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1314,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:52:59Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1315,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:53:17Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1316,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:53:34Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1317,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:53:49Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1318,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:54:06Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1319,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:54:21Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1320,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:54:36Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1321,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:54:54Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1322,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:55:11Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1323,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:55:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1324,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:55:43Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1325,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:56:00Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1326,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:56:16Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1327,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:56:31Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1328,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:56:49Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1329,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:57:22Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1330,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:57:38Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1331,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:57:54Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1332,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:58:10Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1333,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:58:26Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1334,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:58:42Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1335,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:59:00Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1336,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:59:15Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1337,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:59:31Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1338,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T10:59:48Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1339,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:00:04Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1340,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:00:21Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1341,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:00:37Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1342,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:00:55Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1343,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:01:12Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1344,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:01:28Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1345,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:01:43Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1346,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:01:59Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1347,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:02:16Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1348,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:02:31Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1349,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:02:48Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1350,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T11:03:03Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1351,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:36:43Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1352,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:37:00Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1353,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:37:18Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1354,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:37:35Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1355,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:37:51Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1356,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:38:06Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1357,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:38:23Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1358,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:38:40Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1359,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:38:57Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1360,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:39:15Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1361,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:39:32Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1362,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:39:47Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1363,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:40:04Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1364,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:40:21Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1365,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:40:37Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1366,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:40:52Z",
+      "source": "thingspeak"
+    },
+    {
+      "id": 1367,
+      "soilMoisture": 0,
+      "temperature": 0,
+      "humidity": 0,
+      "timestamp": "2025-12-23T12:41:07Z",
+      "source": "thingspeak"
+    }
+  ],
+  "lastUpdate": "2026-01-05T17:50:16.703Z",
+  "status": "connected",
+  "channel": {
+    "id": 3136377,
+    "name": "soil monitoring phasal bazaar",
+    "latitude": "0.0",
+    "longitude": "0.0",
+    "field1": "Field Label 1",
+    "created_at": "2025-10-28T12:37:14Z",
+    "updated_at": "2026-01-04T13:12:56Z",
+    "last_entry_id": 1367
+  }
+}
